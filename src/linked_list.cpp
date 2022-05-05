@@ -4,31 +4,36 @@
 
 namespace assignment {
 
-  /**
-   * Переворачивает связный список, используя три указателя.
-   *
-   * Сложность
-   *    по памяти ~ O(1)
-   *    по времени ~ O(N)
-   */
+
   void LinkedList::ReverseIterative() {
-    // Напишите здесь свой код ...
+    Node* current = front_;
+    Node* past = nullptr;
+    while (current != nullptr)
+    {
+      Node* next = current->next;
+      current->next = past;
+      past = current;
+      current = next;
+    }
+    back_ = front_;
+    front_ = past;
   }
 
-  /**
-   * Переворачивает связный список, используя рекурсию.
-   *
-   * Сложность
-   *    по памяти ~ O(N)
-   *    по времени ~ O(N)
-   */
+
   void LinkedList::ReverseRecursive() {
-    // Напишите здесь свой код ...
+    reverse_recursive_helper(front_, nullptr);
+    Node* savehead = front_;
+    front_ = back_;
+    back_ = savehead;
   }
 
   // вспомогательный метод для реализации рекурсии
-  void LinkedList::reverse_recursive_helper(Node*& curr, Node* prev) {
-    // Напишите здесь свой код ...
+  void LinkedList::reverse_recursive_helper(Node*& current, Node* past) {
+    if (current != nullptr)
+    {
+      reverse_recursive_helper(current->next, current);
+      current->next = past;
+    }
   }
 
 }  // namespace assignment
